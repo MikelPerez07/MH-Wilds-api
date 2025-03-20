@@ -28,7 +28,7 @@ public class Modifier {
 	private Long id;
 
 	@Column
-	private String name; // Clave del mapa (por ejemplo, "resistFire")
+	private String name; // Clave del mapa
 
 	@Column
 	private Integer value; // Valor (por ejemplo, 6)

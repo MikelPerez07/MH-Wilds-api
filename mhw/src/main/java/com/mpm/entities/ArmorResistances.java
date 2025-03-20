@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,41 +17,40 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "items")
-public class Item implements Serializable {
-
+@Table(name = "armor_resistances")
+public class ArmorResistances implements Serializable {
 	/**
-	 * 10000-11000 Weapons 11000-12000 Armors 12000-13000 Charms 13000-14000
-	 * Decorations 14000-15000 Commons
-	 * 
-	 * 
-	 */
+	* 
+	*/
 	@Serial
-	private static final long serialVersionUID = 2700991092208683250L;
+	private static final long serialVersionUID = 4237566340696968216L;
 
-	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
+	@Id
 	private Long id;
 
 	@Column
-	private String name;
+	private Integer fire;
 
 	@Column
-	private String description;
+	private Integer water;
 
 	@Column
-	private Integer rarity;
+	private Integer ice;
 
 	@Column
-	private Integer value;
+	private Integer thunder;
 
 	@Column
-	private String icon;
+	private Integer dragon;
+
+	@OneToOne
+	private Armor armor;
 
 }

@@ -11,8 +11,6 @@ public interface IGeneralService<T> {
 
 	T findById(Long id);
 
-	T findByName(String name);
-
 	T save(T t);
 
 	void deleteById(Long id);

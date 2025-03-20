@@ -65,13 +65,10 @@ public class Weapon implements Serializable {
 	@Column
 	private Integer craftable;
 
-	@OneToMany(mappedBy = "weapon")
+	@OneToMany(mappedBy = "craftingWeapon")
 	private List<Material> craftingMaterials = new ArrayList<>();
 
-	@Column
-	private Integer upgradeable;
-
-	@OneToMany(mappedBy = "weapon")
+	@OneToMany(mappedBy = "upgradeWeapon")
 	private List<Material> upgradeMaterials = new ArrayList<>();
 
 	@Column

@@ -2,7 +2,6 @@ package com.mpm.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,39 +24,40 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "motion_values")
-public class MotionValue implements Serializable{
+public class MotionValue implements Serializable {
 
 	/**
 	 * 
 	 */
 	@Serial
 	private static final long serialVersionUID = 8070754210384695505L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Long id;
-	
+
 	@Enumerated(EnumType.STRING)
-	private WeaponType weaponType; //Type of weapon
-	
+	private WeaponType weaponType; // Type of weapon
+
 	@Column
 	private String name;
-	
+
 	@Column
 	private Integer stun;
-	
+
 	@Column
 	private Integer exhaust;
-	
+
 	@Column
 	private String hits;
-	
-	
-	
-	
+
+	public MotionValue(String weaponType, String name, Integer stun, Integer exhaust, String hits) {
+		this.hits = hits;
+		this.weaponType = WeaponType.fromValue(weaponType);
+		this.name = name;
+		this.stun = stun;
+		this.exhaust = exhaust;
+	}
 
 }
-
-
-
