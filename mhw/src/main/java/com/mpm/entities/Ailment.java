@@ -3,15 +3,12 @@ package com.mpm.entities;
 import java.io.Serial;
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,47 +19,32 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "weapon_sharpnesses")
-public class WeaponSharpness implements Serializable {
+@ToString
+@Table(name = "ailments")
+public class Ailment implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = -589643638804009156L;
+	private static final long serialVersionUID = 2854143676656276587L;
 
-	@JsonIgnore
 	@Column
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "weapon")
-	private Weapon weapon;
+	@Column
+	private String name;
 
 	@Column
-	private Integer sharpnessLevel;
+	private String description;
 
-	@Column
-	private Integer red;
+	@OneToOne(mappedBy = "ailment")
+	private AilmentRecovery ailmentRecovery;
 
-	@Column
-	private Integer orange;
-
-	@Column
-	private Integer green;
-
-	@Column
-	private Integer blue;
-
-	@Column
-	private Integer white;
-
-	@Column
-	private Integer purple;
+	@OneToOne(mappedBy = "ailment")
+	private AilmentProtection ailmentProtection;
 
 }

@@ -3,7 +3,7 @@ package com.mpm.entities;
 import java.io.Serial;
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,46 +23,30 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "weapon_sharpnesses")
-public class WeaponSharpness implements Serializable {
+@NoArgsConstructor
+@Table(name = "camps")
+public class Camp implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = -589643638804009156L;
+	private static final long serialVersionUID = 9131766129706720344L;
 
-	@JsonIgnore
-	@Column
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	private Long id;
 
-	@JsonIgnore
+	@Column
+	private Integer zone;
+
+	@Column
+	private String name;
+
+	@JoinColumn(name = "location")
 	@ManyToOne
-	@JoinColumn(name = "weapon")
-	private Weapon weapon;
-
-	@Column
-	private Integer sharpnessLevel;
-
-	@Column
-	private Integer red;
-
-	@Column
-	private Integer orange;
-
-	@Column
-	private Integer green;
-
-	@Column
-	private Integer blue;
-
-	@Column
-	private Integer white;
-
-	@Column
-	private Integer purple;
+	@JsonBackReference
+	private Location location;
 
 }
