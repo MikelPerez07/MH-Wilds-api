@@ -2,7 +2,10 @@ package com.mpm.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,8 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,33 +25,34 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
-@Table(name = "ranks")
-public class Rank implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "crafting")
+public class Crafting implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = 3035837219903399465L;
+	private static final long serialVersionUID = 5077951651475860685L;
 
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "skill")
-	private Skill skill;
+	@Column
+	private Integer craftable;
 
 	@Column
-	private Integer level;
+	private Integer previous;
 
-	@Column
-	private String description;
+	@JoinColumn(name = "weapon")
+	@OneToOne
+	@JsonIgnore
+	private Weapon weapon;
 
-	@OneToMany(mappedBy = "rank")
-	private List<Modifier> modifier;
+	@OneToMany(mappedBy = "crafting")
+	private List<WeaponBranches> branches = new ArrayList<>();
 
 }
