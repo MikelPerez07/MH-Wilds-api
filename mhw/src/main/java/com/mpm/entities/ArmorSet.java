@@ -2,6 +2,7 @@ package com.mpm.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +15,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,17 +26,17 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@Table(name = "armor")
-public class Armor implements Serializable {
+@Table(name = "armor_sets")
+public class ArmorSet implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = 7196897610769145794L;
+	private static final long serialVersionUID = -3173465625557660956L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,43 +46,27 @@ public class Armor implements Serializable {
 	@Column
 	private String name;
 
-	@Column
-	private String type;
+	@Column(name = "set_rank")
+	private String setRank;
 
-	@Column(name = "armor_rank")
-	private String armorRank;
+	@OneToMany(mappedBy = "set")
+	private List<Armor> pieces;
 
-	@OneToOne
-	private ArmorDefense defense;
-
-	@OneToOne
-	@JoinColumn(name = "resistances_id")
-	private ArmorResistances resistances;
-
-	// TODO Attribute slots???
-
-	@OneToMany(mappedBy = "armor")
-	private List<ArmorSkill> skills;
-
-	// TODO Armor set???
-
-	@ManyToOne
-	private ArmorSet set;
-
-	@OneToMany(mappedBy = "armor")
-	private List<Material> craftingMaterials;
-
-	public Map<String, Object> filterArmor() {
+	public Map<String, Object> getSetReduced() {
 		LinkedHashMap<String, Object> map = new LinkedHashMap<>();
 		map.put("id", this.id);
-		map.put("name", this.name);
-		map.put("type", this.type);
-		map.put("armor_set", this.set.getSetReduced());
-		map.put("skills", this.skills);
+		map.put("name", name);
+		map.put("rank", setRank);
 
-		// TODO finish putting the other attributes
+		List<Long> idPieces = new ArrayList<>();
+		for (Armor piece : pieces) {
+			idPieces.add(piece.getId());
+		}
+
+		map.put("pieces", idPieces);
 
 		return map;
 
 	}
+
 }
