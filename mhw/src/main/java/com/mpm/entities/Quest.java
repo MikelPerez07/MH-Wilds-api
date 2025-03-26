@@ -2,16 +2,15 @@ package com.mpm.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,33 +21,42 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "locations")
-public class Location implements Serializable {
+@AllArgsConstructor
+@ToString
+@Table(name = "quests")
+public class Quest implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = -8047719024786430056L;
+	private static final long serialVersionUID = 3285205631756181009L;
 
 	@Id
-	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	private Long id;
 
 	@Column
 	private String name;
 
 	@Column
-	private Integer zoneCount;
+	@Enumerated(EnumType.STRING)
+	private QuestType type;
 
-	@OneToMany(mappedBy = "location")
-	private List<Camp> camps;
+	@Column
+	private String description;
 
-	@JsonBackReference
-	@OneToMany(mappedBy = "location")
-	private List<Quest> quests;
+	@Column
+	private String requirements;
+
+	@Column(name = "quest_rank")
+	private Integer questRank;
+
+	@Column(name = "success_condition")
+	private String successCondition;
+
+	@ManyToOne
+	private Location location;
 
 }

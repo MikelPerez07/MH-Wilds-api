@@ -13,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -73,6 +74,7 @@ public class Weapon implements Serializable {
 	private List<Material> upgradeMaterials = new ArrayList<>();
 
 	@OneToOne
+	@JoinColumn(name = "crafting")
 	private Crafting crafting;
 
 	@Column
