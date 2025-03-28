@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mpm.entities.Quest;
 import com.mpm.entities.QuestType;
+import com.mpm.models.services.IGeneralNameService;
 import com.mpm.models.services.IQuestService;
 
 @RestController
@@ -17,6 +18,9 @@ public class QuestRestController {
 	@Autowired
 	private IQuestService questService;
 
+	@Autowired
+	private IGeneralNameService<QuestType> questTypeService;
+
 	@GetMapping("/quests")
 	public List<Quest> findAll() {
 		return questService.findAll();
@@ -24,7 +28,8 @@ public class QuestRestController {
 
 	@GetMapping("/quests/{type}")
 	public List<Quest> findAllByType(@PathVariable String type) {
-		return questService.findAllByType(QuestType.fromValue(type));
+		QuestType questType = questTypeService.findByName(type);
+		return questService.findAllByType(questType);
 	}
 
 	@GetMapping("/quest/{id}")

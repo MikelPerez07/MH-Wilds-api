@@ -4,8 +4,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,24 +23,26 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "quest-types")
-public class QuestType implements Serializable {
+@Table(name = "monster_resistance")
+public class MonsterResistance implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = -7960484521120961954L;
+	private static final long serialVersionUID = -2290311343373370109L;
 
 	@Id
-	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	private Long id;
 
-	@OneToMany(mappedBy = "type")
-	@JsonIgnore
-	private Set<Quest> quests;
-
 	@Column
-	private String type;
+	private String element;
+
+	@Column(name = "resistance_condition")
+	private String condition;
+
+	@OneToMany(mappedBy = "resistance")
+	private Set<MonsterResistances> monsters;
 
 }

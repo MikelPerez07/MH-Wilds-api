@@ -5,14 +5,13 @@ import java.io.Serializable;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -22,39 +21,31 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "materials")
-public class Material implements Serializable {
+@NoArgsConstructor
+@Table(name = "monster_types")
+public class MonsterType implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = 262593256362493853L;
+	private static final long serialVersionUID = -8936941376022748358L;
 
 	@Id
-	@JsonIgnore
-	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
+	@JsonIgnore
 	private Long id;
 
-	@OneToMany(mappedBy = "material")
-	private Set<CraftingWeaponMaterial> craftingWeapon;
-
-	@OneToMany(mappedBy = "material")
-	private Set<UpgradeWeaponMaterial> upgradeWeapon;
-
-	@OneToMany(mappedBy = "material")
-	private Set<CraftingArmorMaterial> armor;
-
+	@JsonValue
 	@Column
-	private Integer quantity;
+	private String type;
 
-	@JoinColumn(name = "item")
-	@ManyToOne
-	private Item item;
+	@JsonIgnore
+	@OneToMany(mappedBy = "type")
+	private Set<Monster> monsters;
 
 }

@@ -2,9 +2,6 @@ package com.mpm.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,36 +21,30 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "materials")
-public class Material implements Serializable {
+@NoArgsConstructor
+@Table(name = "weapon_elemental_damages")
+public class WeaponElementalDamage implements Serializable {
+	// Tabla que contendrá los valores de elementos de cada arma
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = 262593256362493853L;
+	private static final long serialVersionUID = 1439835521802523542L;
 
 	@Id
-	@JsonIgnore
-	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	private Long id;
 
-	@OneToMany(mappedBy = "material")
-	private Set<CraftingWeaponMaterial> craftingWeapon;
-
-	@OneToMany(mappedBy = "material")
-	private Set<UpgradeWeaponMaterial> upgradeWeapon;
-
-	@OneToMany(mappedBy = "material")
-	private Set<CraftingArmorMaterial> armor;
+	@ManyToOne
+	@JoinColumn(name = "elemental_damage")
+	private ElementalDamage elementalDamage;
 
 	@Column
-	private Integer quantity;
+	private Integer damage;
 
-	@JoinColumn(name = "item")
-	@ManyToOne
-	private Item item;
+	@Column
+	private Integer hidden = 0; // atributo que sirve para saber si el arma tiene el elemento oculto o no
 
 }

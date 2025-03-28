@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -72,7 +73,7 @@ public class Armor implements Serializable {
 	private ArmorSet set;
 
 	@OneToMany(mappedBy = "armor")
-	private List<Material> craftingMaterials;
+	private Set<CraftingArmorMaterial> craftingMaterials;
 
 	public Map<String, Object> filterArmor() {
 		LinkedHashMap<String, Object> map = new LinkedHashMap<>();

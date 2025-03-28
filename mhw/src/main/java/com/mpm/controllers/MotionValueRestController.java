@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mpm.entities.MotionValue;
 import com.mpm.entities.WeaponType;
+import com.mpm.models.services.IGeneralNameService;
 import com.mpm.models.services.IMotionValueService;
 
 @RestController
@@ -21,6 +22,9 @@ public class MotionValueRestController {
 
 	@Autowired
 	private IMotionValueService<MotionValue> motionValueService;
+
+	@Autowired
+	private IGeneralNameService<WeaponType> weaponTypeService;
 
 	@GetMapping
 	public List<MotionValue> findAll() {
@@ -37,9 +41,8 @@ public class MotionValueRestController {
 
 	@GetMapping("/weapon-type/{weaponType}")
 	public List<MotionValue> findByType(@PathVariable String weaponType) {
-		System.out.println("recibido" + weaponType);
-
-		return motionValueService.findByWeaponType(WeaponType.fromValue(weaponType));
+		WeaponType type = weaponTypeService.findByName(weaponType);
+		return motionValueService.findByWeaponType(type);
 	}
 
 	@GetMapping("/name/{name}")

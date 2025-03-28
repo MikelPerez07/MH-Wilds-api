@@ -5,11 +5,11 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,7 +37,8 @@ public class MotionValue implements Serializable {
 	@Column
 	private Long id;
 
-	@Enumerated(EnumType.STRING)
+	@OneToOne
+	@JoinColumn(name = "weapon_type")
 	private WeaponType weaponType; // Type of weapon
 
 	@Column
@@ -51,13 +52,5 @@ public class MotionValue implements Serializable {
 
 	@Column
 	private String hits;
-
-	public MotionValue(String weaponType, String name, Integer stun, Integer exhaust, String hits) {
-		this.hits = hits;
-		this.weaponType = WeaponType.fromValue(weaponType);
-		this.name = name;
-		this.stun = stun;
-		this.exhaust = exhaust;
-	}
 
 }

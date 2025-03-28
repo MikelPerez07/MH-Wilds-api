@@ -9,7 +9,7 @@ import com.mpm.entities.Ailment;
 import com.mpm.models.repositories.IAilmentRepository;
 
 @Service
-public class AilmentServiceImpl implements IAilmentService<Ailment> {
+public class AilmentServiceImpl implements IGeneralNameService<Ailment> {
 
 	@Autowired
 	private IAilmentRepository ailmentRepository;

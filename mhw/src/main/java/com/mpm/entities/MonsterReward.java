@@ -2,9 +2,6 @@ package com.mpm.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,39 +18,28 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "materials")
-public class Material implements Serializable {
+@NoArgsConstructor
+@Table(name = "monster_rewards")
+public class MonsterReward implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = 262593256362493853L;
+	private static final long serialVersionUID = 3760522637788035123L;
 
 	@Id
-	@JsonIgnore
-	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	private Long id;
 
-	@OneToMany(mappedBy = "material")
-	private Set<CraftingWeaponMaterial> craftingWeapon;
-
-	@OneToMany(mappedBy = "material")
-	private Set<UpgradeWeaponMaterial> upgradeWeapon;
-
-	@OneToMany(mappedBy = "material")
-	private Set<CraftingArmorMaterial> armor;
-
-	@Column
-	private Integer quantity;
-
-	@JoinColumn(name = "item")
 	@ManyToOne
+	@JoinColumn(name = "item")
 	private Item item;
+
+	// TODO list of conditions to obtain the item
 
 }

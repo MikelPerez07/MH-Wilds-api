@@ -4,16 +4,16 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -46,11 +46,9 @@ public class Weapon implements Serializable {
 	@Column
 	private String name;
 
-	@Enumerated(EnumType.STRING)
+	@ManyToOne
+	@JoinColumn(name = "type")
 	private WeaponType type;
-
-	@Enumerated(EnumType.STRING)
-	private DamageType damageType;
 
 	@Column
 	private Integer rarity;
@@ -67,11 +65,11 @@ public class Weapon implements Serializable {
 	@Column
 	private Integer craftable;
 
-	@OneToMany(mappedBy = "craftingWeapon")
-	private List<Material> craftingMaterials = new ArrayList<>();
+	@OneToMany(mappedBy = "weapon")
+	private Set<UpgradeWeaponMaterial> upgradeMaterials;
 
-	@OneToMany(mappedBy = "upgradeWeapon")
-	private List<Material> upgradeMaterials = new ArrayList<>();
+	@OneToMany(mappedBy = "weapon")
+	private Set<CraftingWeaponMaterial> craftingMaterials;
 
 	@OneToOne
 	@JoinColumn(name = "crafting")

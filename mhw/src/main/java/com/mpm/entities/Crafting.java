@@ -30,6 +30,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Table(name = "crafting")
 public class Crafting implements Serializable {
+	// Entity containing the previous weapon and the posible weapon upgrades
 	/**
 	* 
 	*/
