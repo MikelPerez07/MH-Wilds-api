@@ -4,11 +4,17 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -24,6 +30,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "monster_resistance")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MonsterResistance implements Serializable {
 	/**
 	* 
@@ -34,15 +41,18 @@ public class MonsterResistance implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
+	@JsonIgnore
 	private Long id;
 
-	@Column
-	private String element;
+	@JoinColumn(name = "element")
+	@ManyToOne
+	private ElementalDamage element;
 
 	@Column(name = "resistance_condition")
 	private String condition;
 
 	@OneToMany(mappedBy = "resistance")
+	@JsonBackReference
 	private Set<MonsterResistances> monsters;
 
 }

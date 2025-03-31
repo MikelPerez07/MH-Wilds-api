@@ -54,6 +54,7 @@ public class Location implements Serializable {
 
 	@OneToMany(mappedBy = "location")
 	@JsonIgnore
+	@JsonBackReference
 	private List<MonsterLocations> monsters;
 
 }

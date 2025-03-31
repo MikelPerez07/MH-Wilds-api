@@ -50,4 +50,11 @@ public class ElementalDamage implements Serializable {
 	@OneToMany(mappedBy = "element")
 	@JsonIgnore
 	private Set<MonsterElement> monsters;
+
+	@OneToMany(mappedBy = "element")
+	private Set<MonsterWeakness> weaknesses;
+
+	@OneToMany(mappedBy = "element")
+	private Set<MonsterResistance> resistances;
+
 }

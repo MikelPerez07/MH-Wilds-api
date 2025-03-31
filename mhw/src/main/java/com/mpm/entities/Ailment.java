@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -52,6 +53,7 @@ public class Ailment implements Serializable {
 	private AilmentProtection protection;
 
 	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy = "ailment")
 	private Set<MonsterAilment> monsters;
 

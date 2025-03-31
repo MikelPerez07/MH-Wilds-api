@@ -3,6 +3,9 @@ package com.mpm.entities;
 import java.io.Serial;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,11 +41,13 @@ public class MonsterResistances implements Serializable {
 	private Long id;
 
 	@ManyToOne
+	@JsonValue
 	@JoinColumn(name = "resistance")
 	private MonsterResistance resistance;
 
 	@ManyToOne
 	@JoinColumn(name = "monster")
+	@JsonBackReference
 	private Monster monster;
 
 }

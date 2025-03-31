@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +27,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "monster_weaknesses")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MonsterWeakness implements Serializable {
 	/**
 	* 
