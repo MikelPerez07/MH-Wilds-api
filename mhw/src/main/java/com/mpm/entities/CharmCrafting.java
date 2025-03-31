@@ -4,15 +4,12 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,36 +20,26 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
-@Table(name = "ailments")
-public class Ailment implements Serializable {
-	/**
-	* 
-	*/
-	@Serial
-	private static final long serialVersionUID = 2854143676656276587L;
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "charm_craftings")
+public class CharmCrafting implements Serializable {
 
-	@Column
+	/**
+	 * 
+	 */
+	@Serial
+	private static final long serialVersionUID = 6777483810283223272L;
+
 	@Id
+	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column
-	private String name;
+	private Integer craftable; // 0 or 1, 0 = false and 1 = true
 
-	@Column
-	private String description;
-
-	@OneToOne(mappedBy = "ailment")
-	private AilmentRecovery recovery;
-
-	@OneToOne(mappedBy = "ailment")
-	private AilmentProtection protection;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "ailment")
-	private Set<MonsterAilment> monsters;
-
+	@OneToMany(mappedBy = "charmCrafting")
+	private Set<CharmCraftingMaterial> materials;
 }

@@ -2,7 +2,6 @@ package com.mpm.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,31 +18,30 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Setter
 @Getter
+@Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "monster_rewards")
-public class MonsterReward implements Serializable {
+@Table(name = "charm_crafting_materials")
+public class CharmCraftingMaterial implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = 3760522637788035123L;
+	private static final long serialVersionUID = -185280367889375914L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "item")
-	private Item item;
+	@JoinColumn(name = "charm")
+	private CharmCrafting charmCrafting;
 
-	@OneToMany
-	private Set<RewardCondition> rewardCondition;
-
-	// TODO list of conditions to obtain the item
+	@ManyToOne
+	@JoinColumn(name = "material")
+	private Material material;
 
 }

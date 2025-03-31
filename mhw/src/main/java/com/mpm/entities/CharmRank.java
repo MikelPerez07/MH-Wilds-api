@@ -4,15 +4,12 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,33 +23,26 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Table(name = "ailments")
-public class Ailment implements Serializable {
+@Table(name = "charm_ranks")
+public class CharmRank implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = 2854143676656276587L;
+	private static final long serialVersionUID = 3720217124250287515L;
 
-	@Column
 	@Id
+	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column
-	private String name;
+	private Integer level;
 
 	@Column
-	private String description;
+	private Integer rarity;
 
-	@OneToOne(mappedBy = "ailment")
-	private AilmentRecovery recovery;
-
-	@OneToOne(mappedBy = "ailment")
-	private AilmentProtection protection;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "ailment")
-	private Set<MonsterAilment> monsters;
+	@OneToMany(mappedBy = "charmRank")
+	private Set<CharmRankSkill> skills;
 
 }

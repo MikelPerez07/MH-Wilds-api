@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -11,7 +12,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -58,14 +58,19 @@ public class Item implements Serializable {
 	@Column
 	private String icon;
 
-	@ManyToOne
-	private AilmentRecovery ailmentRecovery;
+	@OneToMany(mappedBy = "item")
+	@JsonIgnore
+	@JsonBackReference
+	private Set<AilmentRecoveryItem> ailmentRecovery;
 
-	@ManyToOne
-	private AilmentProtection ailmentProtection;
+	@JsonIgnore
+	@JsonBackReference
+	@OneToMany(mappedBy = "item")
+	private Set<AilmentProtectionItem> protections;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "item")
+	@JsonBackReference
 	private Set<MonsterReward> rewards;
 
 }

@@ -57,4 +57,8 @@ public class Material implements Serializable {
 	@ManyToOne
 	private Item item;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "material")
+	private Set<CharmCraftingMaterial> charms;
+
 }

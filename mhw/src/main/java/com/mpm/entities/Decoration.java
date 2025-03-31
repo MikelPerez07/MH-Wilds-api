@@ -4,15 +4,12 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,19 +20,20 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
-@Table(name = "ailments")
-public class Ailment implements Serializable {
-	/**
-	* 
-	*/
-	@Serial
-	private static final long serialVersionUID = 2854143676656276587L;
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "decorations")
+public class Decoration implements Serializable {
 
-	@Column
+	/**
+	 * 
+	 */
+	@Serial
+	private static final long serialVersionUID = 3900369660314186042L;
+
 	@Id
+	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
@@ -43,16 +41,13 @@ public class Ailment implements Serializable {
 	private String name;
 
 	@Column
-	private String description;
+	private Integer rarity; // maybe change it to another rarity class? (to restrict the min/max rarity)
 
-	@OneToOne(mappedBy = "ailment")
-	private AilmentRecovery recovery;
+	@Column
+	private Integer slot; // Maybe change it to another slot class? (to restrict the min/max possible
+							// slots)
 
-	@OneToOne(mappedBy = "ailment")
-	private AilmentProtection protection;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "ailment")
-	private Set<MonsterAilment> monsters;
+	@OneToMany(mappedBy = "decoration")
+	private Set<DecorationSkill> skills;
 
 }

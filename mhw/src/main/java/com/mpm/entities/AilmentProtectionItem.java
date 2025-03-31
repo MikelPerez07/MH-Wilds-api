@@ -2,10 +2,10 @@ package com.mpm.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,8 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,31 +24,30 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
-@Table(name = "ailments_recovery")
-public class AilmentRecovery implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "ailment_protection_items")
+public class AilmentProtectionItem implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = 6822538855061654609L;
+	private static final long serialVersionUID = -8910879207424474131L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonIgnore
 	private Long id;
 
-	@JsonBackReference
+	@ManyToOne
 	@JoinColumn(name = "ailment")
-	@OneToOne
-	private Ailment ailment;
+	@JsonBackReference
+	private AilmentProtection ailment;
 
-	@OneToMany(mappedBy = "ailmentRecovery")
-	private Set<ActionRecovery> actions;
-
-	@OneToMany(mappedBy = "ailment")
-	private Set<AilmentRecoveryItem> items;
+	@ManyToOne
+	@JoinColumn(name = "item")
+	@JsonValue
+	private Item item;
 }

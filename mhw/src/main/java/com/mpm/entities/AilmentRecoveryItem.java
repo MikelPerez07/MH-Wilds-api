@@ -2,12 +2,10 @@ package com.mpm.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Set;
-
-import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,27 +13,27 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Getter
-@Service
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Table(name = "ailments_protection")
-public class AilmentProtection implements Serializable {
+@Table(name = "ailment_recovery_items")
+public class AilmentRecoveryItem implements Serializable {
 	/**
-	 * 
-	 */
+	* 
+	*/
 	@Serial
-	private static final long serialVersionUID = -153830779527568329L;
+	private static final long serialVersionUID = 2303940246601111369L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,17 +41,14 @@ public class AilmentProtection implements Serializable {
 	@JsonIgnore
 	private Long id;
 
-	@JsonBackReference
+	@ManyToOne
 	@JoinColumn(name = "ailment")
-	@OneToOne
-	private Ailment ailment;
+	@JsonBackReference
+	private AilmentRecovery ailment;
 
-	@OneToMany(mappedBy = "ailment")
-	private Set<AilmentProtectionItem> items;
+	@ManyToOne
+	@JoinColumn(name = "item")
+	@JsonValue
+	private Item item;
 
-	// falta la lista de Skill
-	// TODO despues de implementar la entidad Skill, añadir la lista de skills
-
-	@OneToMany(mappedBy = "protection")
-	private Set<Skill> skills;
 }

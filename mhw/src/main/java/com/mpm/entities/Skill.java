@@ -2,13 +2,17 @@ package com.mpm.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -43,9 +47,21 @@ public class Skill implements Serializable {
 	private String description;
 
 	@OneToMany(mappedBy = "skill")
-	private List<Rank> ranks;
+	private Set<Rank> ranks;
 
 	@OneToMany(mappedBy = "skill")
-	private List<ArmorSkill> armors;
+	private Set<ArmorSkill> armors;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "skill")
+	private Set<CharmRankSkill> charms;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "skill")
+	private Set<DecorationSkill> decorations;
+
+	@ManyToOne
+	@JoinColumn
+	@JsonIgnore
+	private AilmentProtection protection;
 }
