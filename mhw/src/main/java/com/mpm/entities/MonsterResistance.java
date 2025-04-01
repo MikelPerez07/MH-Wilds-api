@@ -7,6 +7,8 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mpm.entities.Views.Views;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,6 +33,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Table(name = "monster_resistance")
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonView(Views.Basic.class)
 public class MonsterResistance implements Serializable {
 	/**
 	* 

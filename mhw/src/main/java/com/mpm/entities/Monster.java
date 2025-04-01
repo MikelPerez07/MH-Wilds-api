@@ -4,6 +4,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mpm.entities.Views.Views;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,32 +39,41 @@ public class Monster implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
+	@JsonView(Views.Basic.class)
 	private Long id;
 
+	@JsonView(Views.Basic.class)
 	@Column
 	private String name;
 
 	// TODO monster type table
 	@ManyToOne
+	@JsonView(Views.Basic.class)
 	@JoinColumn(name = "type")
 	private MonsterType type;
 
 	@ManyToOne
+	@JsonView(Views.Basic.class)
 	@JoinColumn(name = "species")
 	private MonsterSpecies species;
 
+	@JsonView(Views.Basic.class)
 	@OneToMany(mappedBy = "monster")
 	private Set<MonsterElement> elements;
 
+	@JsonView(Views.Basic.class)
 	@OneToMany(mappedBy = "monster")
 	private Set<MonsterAilment> ailments;
 
+	@JsonView(Views.Basic.class)
 	@OneToMany(mappedBy = "monster")
 	private Set<MonsterLocations> locations;
 
+	@JsonView(Views.Basic.class)
 	@OneToMany(mappedBy = "monster")
 	private Set<MonsterResistances> resistances;
 
+	@JsonView(Views.Basic.class)
 	@OneToMany(mappedBy = "monster")
 	private Set<MonsterWeakness> weaknesses;
 }

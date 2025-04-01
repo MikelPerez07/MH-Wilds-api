@@ -57,10 +57,6 @@ public class Skill implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "skill")
-	private Set<CharmRankSkill> charms;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "skill")
 	private Set<DecorationSkill> decorations;
 
 	@ManyToOne

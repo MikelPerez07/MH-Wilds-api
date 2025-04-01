@@ -4,6 +4,8 @@ import java.io.Serial;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mpm.entities.Views.Views;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,17 +38,21 @@ public class Camp implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
+	@JsonView(Views.Detailed.class)
 	private Long id;
 
 	@Column
+	@JsonView(Views.Detailed.class)
 	private Integer zone;
 
 	@Column
+	@JsonView(Views.Detailed.class)
 	private String name;
 
 	@JoinColumn(name = "location")
 	@ManyToOne
 	@JsonBackReference
+	@JsonView(Views.Detailed.class)
 	private Location location;
 
 }

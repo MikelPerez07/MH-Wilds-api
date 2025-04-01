@@ -3,6 +3,9 @@ package com.mpm.entities;
 import java.io.Serial;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mpm.entities.Views.Views;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +27,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Table(name = "quests")
+@JsonView(Views.Basic.class)
 public class Quest implements Serializable {
 	/**
 	* 

@@ -3,6 +3,8 @@ package com.mpm.entities;
 import java.io.Serial;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,11 +39,12 @@ public class CharmRankSkill implements Serializable {
 	private Long id;
 
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name = "charm_rank")
 	private CharmRank charmRank;
 
 	@ManyToOne
 	@JoinColumn(name = "skill")
-	private Skill skill;
+	private Rank skill;
 
 }

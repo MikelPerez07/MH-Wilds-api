@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mpm.entities.Views.Views;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,12 +41,15 @@ public class Location implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@JsonView(Views.Basic.class)
 	@Column
 	private String name;
 
+	@JsonView(Views.Basic.class)
 	@Column
 	private Integer zoneCount;
 
+	@JsonView(Views.Detailed.class)
 	@OneToMany(mappedBy = "location")
 	private List<Camp> camps;
 

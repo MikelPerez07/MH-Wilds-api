@@ -3,8 +3,10 @@ package com.mpm.entities;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -53,5 +55,9 @@ public class Rank implements Serializable {
 
 	@OneToMany(mappedBy = "rank")
 	private List<Modifier> modifier;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "skill")
+	private Set<CharmRankSkill> charms;
 
 }
