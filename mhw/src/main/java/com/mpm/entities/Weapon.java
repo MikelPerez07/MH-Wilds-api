@@ -59,6 +59,9 @@ public class Weapon implements Serializable {
 	@Column
 	private Integer displayAttack;
 
+	@OneToOne(mappedBy = "weapon")
+	private WeaponElementalDamage elementalDamage;
+
 	@OneToMany(mappedBy = "weapon", cascade = CascadeType.ALL)
 	private List<WeaponSharpness> sharpnesses = new ArrayList<>();
 
@@ -74,9 +77,6 @@ public class Weapon implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "crafting")
 	private Crafting crafting;
-
-	@Column
-	private String icon;
 
 	@Column
 	private String image;

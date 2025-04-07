@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mpm.entities.Weapon;
+import com.mpm.entities.WeaponType;
 import com.mpm.models.repositories.IWeaponRepository;
 
 @Service
-public class WeaponServiceImpl implements IGeneralService<Weapon> {
+public class WeaponServiceImpl implements IWeaponService {
 
 	@Autowired
 	private IWeaponRepository weaponRepository;
@@ -32,6 +33,11 @@ public class WeaponServiceImpl implements IGeneralService<Weapon> {
 	@Override
 	public void deleteById(Long id) {
 		weaponRepository.deleteById(id);
+	}
+
+	@Override
+	public List<Weapon> findByWeaponType(WeaponType weaponType) {
+		return weaponRepository.findByType(weaponType);
 	}
 
 }
