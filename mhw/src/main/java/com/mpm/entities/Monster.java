@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mpm.entities.Views.Views;
 
@@ -15,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -76,4 +78,12 @@ public class Monster implements Serializable {
 	@JsonView(Views.Basic.class)
 	@OneToMany(mappedBy = "monster")
 	private Set<MonsterWeakness> weaknesses;
+
+	@JsonView(Views.Basic.class)
+	@OneToOne(mappedBy = "monster")
+	private MonsterIcon icon;
+
+	@OneToMany(mappedBy = "monster")
+	@JsonIgnore
+	private Set<QuestMonsters> quests;
 }

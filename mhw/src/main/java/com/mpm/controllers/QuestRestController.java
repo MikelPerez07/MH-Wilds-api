@@ -44,4 +44,6 @@ public class QuestRestController {
 		return questService.findById(id);
 	}
 
+	// TODO get the quest related to a monster
+
 }
