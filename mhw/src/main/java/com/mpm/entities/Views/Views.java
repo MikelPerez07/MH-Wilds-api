@@ -6,4 +6,8 @@ public class Views {
 
 	public static class Detailed extends Basic {
 	}
+
+	public static class Quest extends Basic {
+
+	}
 }

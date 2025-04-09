@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mpm.entities.Views.Views;
 
@@ -29,7 +30,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Table(name = "quests")
-@JsonView(Views.Basic.class)
+@JsonView(Views.Quest.class)
 public class Quest implements Serializable {
 	/**
 	* 
@@ -64,6 +65,7 @@ public class Quest implements Serializable {
 	@ManyToOne
 	private Location location;
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "quest")
 	private Set<QuestMonsters> monsters;
 

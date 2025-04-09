@@ -28,7 +28,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "quest-types")
-@JsonView(Views.Basic.class)
+@JsonView(Views.Quest.class)
 public class QuestType implements Serializable {
 	/**
 	* 

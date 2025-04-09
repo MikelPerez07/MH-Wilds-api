@@ -3,6 +3,12 @@ package com.mpm.entities;
 import java.io.Serial;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mpm.entities.Views.Views;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +30,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Table(name = "quest_monsters")
+@JsonView(Views.Quest.class)
 public class QuestMonsters implements Serializable {
 	/**
 	* 
@@ -33,14 +40,17 @@ public class QuestMonsters implements Serializable {
 
 	@Column
 	@Id
+	@JsonIgnore
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "monster")
 	private Monster monster;
 
 	@ManyToOne
+	@JsonValue
 	@JoinColumn(name = "quest")
 	private Quest quest;
 
