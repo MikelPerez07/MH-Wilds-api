@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -44,7 +43,6 @@ public class Rank implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "skill")
-	@JsonBackReference
 	private Skill skill;
 
 	@Column
@@ -59,5 +57,9 @@ public class Rank implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "skill")
 	private Set<CharmRankSkill> charms;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "skill")
+	private Set<WeaponSkills> weapons;
 
 }

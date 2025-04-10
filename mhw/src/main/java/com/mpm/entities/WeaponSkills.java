@@ -3,7 +3,8 @@ package com.mpm.entities;
 import java.io.Serial;
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,34 +24,29 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "weapon_elemental_damages")
-public class WeaponElementalDamage implements Serializable {
-	// Tabla que contendrá los valores de elementos de cada arma
+@AllArgsConstructor
+@Table(name = "weapon_skills")
+public class WeaponSkills implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = 1439835521802523542L;
+	private static final long serialVersionUID = 2384016439329090254L;
 
+	@JsonIgnore
+	@Column
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "elemental_damage")
-	private ElementalDamage elementalDamage;
-
-	@OneToOne
-	@JsonBackReference
+	@JoinColumn(name = "weapon")
 	private Weapon weapon;
 
-	@Column
-	private Integer damage;
-
-	@Column
-	private Integer hidden = 0; // atributo que sirve para saber si el arma tiene el elemento oculto o no
+	@ManyToOne
+	@JsonValue
+	@JoinColumn(name = "skill")
+	private Rank skill;
 
 }

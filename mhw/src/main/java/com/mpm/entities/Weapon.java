@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,7 +45,7 @@ public class Weapon implements Serializable {
 	@Column
 	private Long id;
 
-	@Column
+	@Column(unique = true)
 	private String name;
 
 	@ManyToOne
@@ -59,11 +61,22 @@ public class Weapon implements Serializable {
 	@Column
 	private Integer displayAttack;
 
+	@Column
+	private Integer affinity;
+
 	@OneToOne(mappedBy = "weapon")
 	private WeaponElementalDamage elementalDamage;
 
 	@OneToMany(mappedBy = "weapon", cascade = CascadeType.ALL)
 	private List<WeaponSharpness> sharpnesses = new ArrayList<>();
+
+	@ManyToOne
+	@JoinColumn(name = "slots")
+	@JsonManagedReference
+	private WeaponSlots slots;
+
+	@OneToMany(mappedBy = "weapon")
+	private Set<WeaponSkills> skills;
 
 	@Column
 	private Integer craftable;

@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -48,6 +49,7 @@ public class Skill implements Serializable {
 	private String description;
 
 	@OrderBy("id asc")
+	@JsonBackReference
 	@OneToMany(mappedBy = "skill")
 	private Set<Rank> ranks;
 
