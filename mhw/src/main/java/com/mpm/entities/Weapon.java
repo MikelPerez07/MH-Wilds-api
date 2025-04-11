@@ -64,6 +64,10 @@ public class Weapon implements Serializable {
 	@Column
 	private Integer affinity;
 
+	@OneToMany
+	@JoinColumn(name = "weapon_upgrade_id") // Clave que une las armas relacionadas
+	private List<Weapon> upgradedWeapons;
+
 	@OneToOne(mappedBy = "weapon")
 	private WeaponElementalDamage elementalDamage;
 
@@ -81,15 +85,25 @@ public class Weapon implements Serializable {
 	@Column
 	private Integer craftable;
 
+	@ManyToOne
+	@JoinColumn(name = "previous_weapon")
+	private Weapon previous;
+
 	@OneToMany(mappedBy = "weapon")
 	private Set<UpgradeWeaponMaterial> upgradeMaterials;
 
 	@OneToMany(mappedBy = "weapon")
 	private Set<CraftingWeaponMaterial> craftingMaterials;
 
-	@OneToOne
-	@JoinColumn(name = "crafting")
+	@OneToOne(mappedBy = "weapon")
 	private Crafting crafting;
+
+	/*
+	 * @OneToMany(mappedBy = "weaponBranch") private Set<WeaponUpgrade>
+	 * weaponUpgrades;
+	 * 
+	 * @OneToMany(mappedBy = "weapon") private Set<WeaponUpgrade> weaponUpgrade;
+	 */
 
 	@Column
 	private String image;

@@ -3,13 +3,15 @@ package com.mpm.entities;
 import java.io.Serial;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,7 +39,8 @@ public class MotionValue implements Serializable {
 	@Column
 	private Long id;
 
-	@OneToOne
+	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name = "weapon_type")
 	private WeaponType weaponType; // Type of weapon
 

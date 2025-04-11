@@ -2,19 +2,12 @@ package com.mpm.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,8 +21,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "crafting")
-public class Crafting implements Serializable {
+@Table(name = "weapon_upgrades")
+public class WeaponUpgrade implements Serializable {
 	// Entity containing the previous weapon and the posible weapon upgrades
 	/**
 	* 
@@ -45,12 +38,15 @@ public class Crafting implements Serializable {
 	@Column
 	private Integer craftable;
 
-	@JoinColumn(name = "weapon")
-	@OneToOne
-	@JsonIgnore
-	private Weapon weapon;
-
-	@OneToMany(mappedBy = "crafting")
-	private List<WeaponBranches> branches = new ArrayList<>();
-
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JsonIgnore private Weapon weapon;
+	 * 
+	 * @ManyToOne
+	 * 
+	 * @JsonManagedReference
+	 * 
+	 * @JoinColumn(name = "weapon_branch") private Weapon weaponBranch;
+	 */
 }
