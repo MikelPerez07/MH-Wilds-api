@@ -3,6 +3,9 @@ package com.mpm.entities;
 import java.io.Serial;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mpm.entities.Views.Views;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +27,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "upgrade_weapon_materials")
+@JsonView(Views.Basic.class)
 public class UpgradeWeaponMaterial implements Serializable {
 	/**
 	 * Contains the neccesary materials to upgrade a weapon

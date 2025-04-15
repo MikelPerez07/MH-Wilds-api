@@ -38,15 +38,4 @@ public class WeaponUpgrade implements Serializable {
 	@Column
 	private Integer craftable;
 
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JsonIgnore private Weapon weapon;
-	 * 
-	 * @ManyToOne
-	 * 
-	 * @JsonManagedReference
-	 * 
-	 * @JoinColumn(name = "weapon_branch") private Weapon weaponBranch;
-	 */
 }

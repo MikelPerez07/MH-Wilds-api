@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mpm.entities.Views.Views;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -32,6 +35,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "weapons")
+@JsonView(Views.Basic.class)
 public class Weapon implements Serializable {
 
 	/**
@@ -64,12 +68,15 @@ public class Weapon implements Serializable {
 	@Column
 	private Integer affinity;
 
-	@OneToMany
-	@JoinColumn(name = "weapon_upgrade_id") // Clave que une las armas relacionadas
-	private List<Weapon> upgradedWeapons;
+	@ManyToOne
+	@JoinColumn(name = "element")
+	private ElementalDamage element;
 
-	@OneToOne(mappedBy = "weapon")
-	private WeaponElementalDamage elementalDamage;
+	@Column(name = "elemental_damage")
+	private Integer elementalDamage;
+
+	@Column(name = "element_hidden")
+	private Integer elementHidden;
 
 	@OneToMany(mappedBy = "weapon", cascade = CascadeType.ALL)
 	private List<WeaponSharpness> sharpnesses = new ArrayList<>();
@@ -86,6 +93,7 @@ public class Weapon implements Serializable {
 	private Integer craftable;
 
 	@ManyToOne
+	@JsonView(Views.previousWeapon.class)
 	@JoinColumn(name = "previous_weapon")
 	private Weapon previous;
 
@@ -98,12 +106,16 @@ public class Weapon implements Serializable {
 	@OneToOne(mappedBy = "weapon")
 	private Crafting crafting;
 
-	/*
-	 * @OneToMany(mappedBy = "weaponBranch") private Set<WeaponUpgrade>
-	 * weaponUpgrades;
-	 * 
-	 * @OneToMany(mappedBy = "weapon") private Set<WeaponUpgrade> weaponUpgrade;
-	 */
+	@JsonManagedReference
+	@JsonView(Views.weaponUpgrades.class)
+	@OneToMany(mappedBy = "weaponUpgrade", cascade = CascadeType.ALL)
+	private Set<Weapon> weaponUpgrades;
+
+	@JsonBackReference
+	@ManyToOne
+	@JsonView(Views.weaponUpgrades.class)
+	@JoinColumn(name = "weapon_upgrade")
+	private Weapon weaponUpgrade;
 
 	@Column
 	private String image;

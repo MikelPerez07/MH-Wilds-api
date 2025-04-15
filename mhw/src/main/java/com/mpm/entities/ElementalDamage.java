@@ -43,9 +43,9 @@ public class ElementalDamage implements Serializable {
 	@Column
 	private String element;
 
-	@OneToMany(mappedBy = "elementalDamage")
+	@OneToMany(mappedBy = "element")
 	@JsonIgnore
-	private Set<WeaponElementalDamage> weapon;
+	private Set<Weapon> weapon;
 
 	@OneToMany(mappedBy = "element")
 	@JsonIgnore
