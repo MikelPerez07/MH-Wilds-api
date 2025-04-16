@@ -2,7 +2,6 @@ package com.mpm.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -13,7 +12,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,39 +25,52 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "elemental_damages")
+@AllArgsConstructor
+@Table(name = "monster_hit_zones")
 @JsonView(Views.Basic.class)
-public class ElementalDamage implements Serializable {
+public class MonsterHitZone implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = 7415390638782960129L;
+	private static final long serialVersionUID = -6539461370314822649L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Long id;
 
+	@ManyToOne
+	@JoinColumn(name = "hit_zone")
+	private HitZone hitZone;
+
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "monster")
+	private Monster monster;
+
 	@Column
-	private String element;
+	private Integer sever;
 
-	@OneToMany(mappedBy = "element")
-	@JsonIgnore
-	private Set<Weapon> weapon;
+	@Column
+	private Integer blunt;
 
-	@OneToMany(mappedBy = "element")
-	@JsonIgnore
-	private Set<MonsterElement> monsters;
+	@Column
+	private Integer shot;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "element")
-	private Set<MonsterWeakness> weaknesses;
+	@Column
+	private Integer fire;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "element")
-	private Set<MonsterResistance> resistances;
+	@Column
+	private Integer water;
 
+	@Column
+	private Integer thunder;
+
+	@Column
+	private Integer ice;
+
+	@Column
+	private Integer dragon;
 }

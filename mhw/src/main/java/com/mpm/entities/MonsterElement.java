@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mpm.entities.Views.Views;
 
@@ -44,6 +45,7 @@ public class MonsterElement implements Serializable {
 	private Long id;
 
 	@ManyToOne
+	@JsonValue
 	@JoinColumn(name = "element")
 	private ElementalDamage element;
 

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mpm.entities.Views.Views;
 
@@ -25,16 +26,16 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "elemental_damages")
+@AllArgsConstructor
+@Table(name = "hit_zones")
 @JsonView(Views.Basic.class)
-public class ElementalDamage implements Serializable {
+public class HitZone implements Serializable {
 	/**
 	* 
 	*/
 	@Serial
-	private static final long serialVersionUID = 7415390638782960129L;
+	private static final long serialVersionUID = 5634211358766155067L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,22 +43,11 @@ public class ElementalDamage implements Serializable {
 	private Long id;
 
 	@Column
-	private String element;
-
-	@OneToMany(mappedBy = "element")
-	@JsonIgnore
-	private Set<Weapon> weapon;
-
-	@OneToMany(mappedBy = "element")
-	@JsonIgnore
-	private Set<MonsterElement> monsters;
+	@JsonValue
+	private String name;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "element")
-	private Set<MonsterWeakness> weaknesses;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "element")
-	private Set<MonsterResistance> resistances;
+	@OneToMany(mappedBy = "hitZone")
+	private Set<MonsterHitZone> monsterHitZones;
 
 }

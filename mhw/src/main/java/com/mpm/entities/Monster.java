@@ -57,6 +57,9 @@ public class Monster implements Serializable {
 	private MonsterSpecies species;
 
 	@OneToMany(mappedBy = "monster")
+	private Set<MonsterHitZone> hitZones;
+
+	@OneToMany(mappedBy = "monster")
 	private Set<MonsterElement> elements;
 
 	@OneToMany(mappedBy = "monster")
